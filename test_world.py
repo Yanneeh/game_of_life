@@ -43,3 +43,24 @@ class TestWorld(TestCase):
         neighbours = self.world.get_neighbours(x, y)
         self.assertEqual(8, len(neighbours))
         self.assertIn(value, neighbours)
+
+    def test_exposure(self):
+        
+        x, y = 4, 4
+        value = self.world.get(x, y)
+        neighbours = self.world.get_neighbours(x, y)
+        
+        if neighbours.count(1) < 2:
+            self.assertEqual(value, 0)
+
+    def test_overcrowding(self):
+        
+        x, y = 4, 4
+        value = self.world.get(x, y)
+        neighbours = self.world.get_neighbours(x, y)
+        
+        if neighbours.count(1) > 3:
+            self.assertEqual(value, 0)
+
+
+

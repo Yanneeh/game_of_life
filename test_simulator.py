@@ -1,7 +1,6 @@
 from unittest import TestCase
 from Simulator import *
 
-
 class TestSimulator(TestCase):
     """
     Tests for ``Simulator`` implementation.
