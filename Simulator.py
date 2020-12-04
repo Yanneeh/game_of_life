@@ -1,4 +1,5 @@
 from World import *
+import copy
 
 class Simulator:
     """
@@ -27,6 +28,10 @@ class Simulator:
         self.generation += 1
 
         #TODO: Do something to evolve the generation
+
+        world_state = copy.copy(self.world)
+
+        for
 
         return self.world
 
