@@ -47,10 +47,8 @@ class TestWorld(TestCase):
     def test_exposure(self):
         
         # Set sample cell to one.
-        x, y = 4, 4
-        self.world.set(x, y, 1)
-
-        value = self.world.get(x, y)
+        x_sample, y_sample = 4, 4
+        self.world.set(x_sample, y_sample, 1)
 
         # Set neighbour sample cell to one.
         x, y = 4, 5
@@ -58,24 +56,15 @@ class TestWorld(TestCase):
 
         self.world.update()
 
-        # self.assertEqual(value, 0)
+        value = self.world.get(x_sample, y_sample)
 
-        # \ TODO: Deze check kan waarschijnlijk weg omdat de regel in de update functie dit moet bepalen.
-
-        # neighbours = self.world.get_neighbours(x, y)
-        
-        # if neighbours.count(1) < 2:
-        #     self.assertEqual(value, 0)
-        # else:
-        #     self.assertEqual(value, 1)
+        self.assertEqual(value, 0)
 
     def test_overcrowding(self):
 
         # Set sample cell to one.
-        x, y = 4, 4
-        self.world.set(x, y, 1)
-
-        value = self.world.get(x, y)
+        x_sample, y_sample = 4, 4
+        self.world.set(x_sample, y_sample, 1)
 
         # Set neighbour sample cells to one.
         x, y = 4, 5
@@ -92,22 +81,74 @@ class TestWorld(TestCase):
 
         self.world.update()
 
+        value = self.world.get(x_sample, y_sample)
+
         self.assertEqual(value, 0)
 
-        # \ TODO: Deze check kan waarschijnlijk weg omdat de regel in de update functie dit moet bepalen.
-
-        # neighbours = self.world.get_neighbours(x, y)
+    def test_survival_two_neighbours(self):
         
-        # if neighbours.count(1) > 3:
-        #     self.assertEqual(value, 0)
-        # else:
-        #     self.assertNotEqual(value, 1)
+        # Set sample cell to one.
+        x_sample, y_sample = 4, 4
+        self.world.set(x_sample, y_sample, 1)
 
-    def test_survival(self):
-        pass
+        # Set neighbour sample cells to one.
+        x, y = 4, 5
+        self.world.set(x, y, 1)
+
+        x, y = 5, 4
+        self.world.set(x, y, 1)
+
+        self.world.update()
+
+        value = self.world.get(x_sample, y_sample)
+
+        self.assertEqual(value, 1)
+
+    def test_survival_three_neighbours(self):
+        
+        # Set sample cell to one.
+        x_sample, y_sample = 4, 4
+        self.world.set(x_sample, y_sample, 1)
+
+        # Set neighbour sample cells to one.
+        x, y = 4, 5
+        self.world.set(x, y, 1)
+
+        x, y = 5, 4
+        self.world.set(x, y, 1)
+
+        x, y = 3, 4
+        self.world.set(x, y, 1)
+
+        self.world.update()
+
+        value = self.world.get(x_sample, y_sample)
+
+        self.assertEqual(value, 1)
+
+
 
     def test_birth(self):
-        pass
+        # Set sample cell to zero.
+        x_sample, y_sample = 4, 4
+        self.world.set(x_sample, y_sample, 0)
+
+        # Set neighbour sample cells to one.
+        x, y = 4, 5
+        self.world.set(x, y, 1)
+
+        x, y = 5, 4
+        self.world.set(x, y, 1)
+
+        x, y = 3, 4
+        self.world.set(x, y, 1)
+
+        self.world.update()
+
+        value = self.world.get(x_sample, y_sample)
+
+        self.assertEqual(value, 1)
+
 
 
 
